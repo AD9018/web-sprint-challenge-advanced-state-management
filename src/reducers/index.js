@@ -1,9 +1,53 @@
+import {
+  FETCH_SMURF_START,
+  FETCH_SMURF_SUCCESS,
+  FETCH_SMURF_FAILURE,
+  PUSH_SMURF_SUCCESS,
+  UPDATE_ERROR,
+} from "../actions/index";
 
 export const initialState = {
-}
+  smurfs: [],
+  isLoading: false,
+  error: "",
+};
 
-const reducer = ()=>{
-}
+export const reducer = (state = initialState, action) => {
+  switch (action.type) {
+    case FETCH_SMURF_START:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case FETCH_SMURF_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        smurfs: action.payload,
+      };
+    case FETCH_SMURF_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload,
+      };
+    case PUSH_SMURF_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        smurfs: [...state.smurfs, action.payload],
+      };
+
+    case UPDATE_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        error: "All Fields Must Be Filled Out",
+      };
+    default:
+      return state;
+  }
+};
 
 export default reducer;
 
